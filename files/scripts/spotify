@@ -1,0 +1,2 @@
+#!/bin/bash
+/snap/bin/spotify > /dev/null 2>&1 &

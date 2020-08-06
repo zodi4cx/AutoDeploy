@@ -1,0 +1,115 @@
+
+# Fix the Java problem
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Manual configuration
+PATH=/home/zodi4c/.local/bin:/snap/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+SAVEHIST=1000
+HISTFILE=~/.zsh_history
+
+bindkey ";5D" backward-word
+bindkey ";5C" forward-word
+zstyle -e ':completion:*' special-dirs '[[ $PREFIX = (../)#(|.|..) ]] && reply=(..)'
+autoload -Uz compinit
+compinit
+bindkey '^I' dotcomplete
+zle -N dotcomplete
+
+# Manual aliases
+alias ll='lsd -lh --group-dirs=first'
+alias la='lsd -a --group-dirs=first'
+alias l='lsd --group-dirs=first'
+alias lla='lsd -lha --group-dirs=first'
+alias ls='lsd --group-dirs=first'
+
+alias cat='/usr/bin/bat'
+alias catn='/usr/bin/cat'
+alias catnl='/usr/bin/bat --paging=never'
+alias beautygrep='/opt/bat-extras/bin/batgrep'
+alias man='/opt/bat-extras/bin/batman'
+
+alias rm='trash-put'
+alias rm-recover='trash-restore'
+alias fucking='sudo'
+alias please='sudo'
+alias vpnc='vpnc --local-port 0'
+
+# Functions
+
+function dotcomplete() {
+  if [[ $BUFFER =~ ^'\.'$ ]]; then
+    BUFFER='./'
+    CURSOR=2
+    zle list-choices
+  else
+    zle expand-or-complete
+  fi
+}
+
+function mkt() {
+	mkdir {discovery,exploits,content,www}
+}
+
+function extractPorts() {
+	openPorts=$(cat $1 | grep -oP "\d*(?=/tcp)" | xargs | tr ' ' ',')
+	echo -e "\n[*] Open ports: $openPorts"
+	echo -n "$openPorts" | xclip -sel clip
+	echo "[+] Ports copied to clipboard!"
+}
+
+function rmk() {
+	scrub -p dod $1
+	shred -zun 10 -v $1
+}
+
+function man() {
+    env \
+    LESS_TERMCAP_mb=$'\e[01;31m' \
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    man "$@"
+}
+
+# fzf improvement
+function fzf-lovely(){
+	if [ "$1" = "h" ]; then
+		fzf -m --reverse --preview-window down:20 --preview '[[ $(file --mime {}) =~ binary ]] &&
+			echo {} is a binary file ||
+			(bat --style=numbers --color=always {} ||
+			highlight -O ansi -l {} ||
+			coderay {} ||
+			rougify {} ||
+			cat {}) 2> /dev/null | head -500'
+	else
+		fzf -m --preview '[[ $(file --mime {}) =~ binary ]] &&
+			echo {} is a binary file ||
+			(bat --style=numbers --color=always {} ||
+			highlight -O ansi -l {} ||
+			coderay {} ||
+			rougify {} ||
+			cat {}) 2> /dev/null | head -500'
+	fi
+}
+
+function target() {
+	rm /tmp/.target_show 2>/dev/null
+	if [ $# -eq 0 ]; then rm /tmp/.target 2>/dev/null
+	else echo "$1" > /tmp/.target; fi
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Manual plugins
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-sudo/sudo.plugin.zsh
+source /usr/share/zsh-vscode/vscode.plugin.zsh
