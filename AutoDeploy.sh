@@ -376,7 +376,7 @@ git clone https://github.com/gpakosz/.tmux.git > /dev/null 2>&1
 check "Error clonando Oh my Tmux!"
 ln -s -f .tmux/.tmux.conf 2>/dev/null
 cp .tmux/.tmux.conf.local . 2>/dev/null
-echo -e '# Uso de los combo Ctrl+flechas, Home y Fin\nset-option -g default-terminal "xterm-256color"\nset-window-option -g xterm-keys on\nbind -n Home send-key C-a\nbind -n End send-key C-e' > .tmux.conf.local
+echo -e '# Uso de los combo Ctrl+flechas, Home y Fin\nset-option -g default-terminal "xterm-256color"\nset-window-option -g xterm-keys on\nbind -n Home send-key C-a\nbind -n End send-key C-e' >> .tmux.conf.local
 
 info "Configurando Oh my Tmux! ($USERNAME)"
 cd "$HOME_PATH"
@@ -386,7 +386,7 @@ chown -R $USERNAME:$USERNAME .tmux/ 2>/dev/null
 ln -s -f .tmux/.tmux.conf 2>/dev/null
 cp .tmux/.tmux.conf.local . 2>/dev/null
 chown -R $USERNAME:$USERNAME .tmux.conf.local 2>/dev/null
-echo -e '# Uso de los combo Ctrl+flechas, Home y Fin\nset-option -g default-terminal "xterm-256color"\nset-window-option -g xterm-keys on\nbind -n Home send-key C-a\nbind -n End send-key C-e' > .tmux.conf.local
+echo -e '# Uso de los combo Ctrl+flechas, Home y Fin\nset-option -g default-terminal "xterm-256color"\nset-window-option -g xterm-keys on\nbind -n Home send-key C-a\nbind -n End send-key C-e' >> .tmux.conf.local
 
 # Fondo de pantalla
 info "Copiando fondo de pantalla a ~/Documents"
