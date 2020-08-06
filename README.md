@@ -31,6 +31,6 @@ Uso del instalador
 
 Para utilizar el script, basta con ejecutarlo como cualquier otro script de Bash:
 
-```bash AutoDeploy.sh```
+```$ bash AutoDeploy.sh```
 
 Una vez indicados los datos solicitados al principio del proceso de instalación, el resto de la ejecución debería de realizarse automáticamente sin necesitar interacción del usuario. Si algún paso del error de instalación falla, se almacena una copia del error en el fichero **error.log** para que estos puedan ser solucionados posteriormente de forma manual.
