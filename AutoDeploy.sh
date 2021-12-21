@@ -256,7 +256,7 @@ tar -C /opt -xvf /tmp/polybar.tar > /dev/null 2>&1
 check "No se pudo hacer build de Polybar"
 
 info "Compilando Polybar"
-cd /opt/polybar 2>/dev/null
+cd /opt/polybar* 2>/dev/null
 mkdir build 2>/dev/null
 cd build 2>/dev/null
 cmake .. > /dev/null 2>&1
