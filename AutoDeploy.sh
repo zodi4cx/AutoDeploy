@@ -416,14 +416,14 @@ cp -r $FILES_PATH/micro/* /root/.config/micro 2>/dev/null
 check "Error copiando configuración de micro (root)"
 
 # Java 8 - seleccionamos esta versión por problemas de compatibilidad con BurpSuite
-info "Seleccionando Java 8 como predeterminado"
-option=$(echo | update-alternatives --config java | grep "java-8" | tr -d '*' | awk '{print $1}')
-if [ ! $option ]; then
-	error "No se encontró Java 8"
-else
-	echo "$option" | update-alternatives --config java > /dev/null 2>&1
-	check "Error eligiendo Java 8 como predeterminado"
-fi
+#info "Seleccionando Java 8 como predeterminado"
+#option=$(echo | update-alternatives --config java | grep "java-8" | tr -d '*' | awk '{print $1}')
+#if [ ! $option ]; then
+#	error "No se encontró Java 8"
+#else
+#	echo "$option" | update-alternatives --config java > /dev/null 2>&1
+#	check "Error eligiendo Java 8 como predeterminado"
+#fi
 
 # Msfconsole
 info "Inicializando la DB de Metasploit"
