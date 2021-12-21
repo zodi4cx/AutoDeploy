@@ -122,7 +122,7 @@ section "Instalación de utilidades"
 
 # Instalación de utilidades
 info "Instalando paquetes de utilidad"
-apt install -y python-pip php-curl snmp passing-the-hash enum4linux ranger htop ghex cherrytree nfs-common cifs-utils ldap-utils xclip feh exploitdb scrub i3lock bashtop cmatrix figlet lolcat sl scrot rinetd rlwrap knockd trash-cli gcc-multilib crackmapexec micro rofi > /dev/null 2>&1
+apt install -y php-curl snmp passing-the-hash enum4linux ranger htop ghex cherrytree nfs-common cifs-utils ldap-utils xclip feh exploitdb scrub i3lock cmatrix figlet lolcat sl scrot rinetd rlwrap knockd trash-cli gcc-multilib crackmapexec micro rofi > /dev/null 2>&1
 check "No se pudieron instalar paquetes de herramientas básicas"
 # Sí, el lolcat es básico .- .
 
