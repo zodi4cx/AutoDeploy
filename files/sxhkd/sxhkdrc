@@ -54,9 +54,24 @@ super + ctrl + {m,x,y,z}
 # focus/swap
 #
 
+## focus the node in the given direction
+#super + {_,shift + }{Left,Down,Up,Right}
+#	bspc node -{f,s} {west,south,north,east}
+
+# MOD for two monitors:
+#######################
+
 # focus the node in the given direction
-super + {_,shift + }{Left,Down,Up,Right}
-	bspc node -{f,s} {west,south,north,east}
+super + {Left,Down,Up,Right}
+	bspc node -f {west,south,north,east}
+
+# swap the node in the given direction
+super + shift + {Left,Down,Up,Right}
+	dir={west,south,north,east}; \
+	bspc node -s "$dir.local" --follow \
+	    || bspc node -m "$dir" --follow
+
+#######################
 
 # focus the node for the given path jump
 super + {p,b,comma,period}
@@ -129,7 +144,7 @@ alt + ctrl + {Left,Down,Up,Right}
 	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
 # Google Chrome
-super + l
+super + k
 	google-chrome
 
 # Gotop
@@ -145,7 +160,7 @@ Print
 	mate-screenshot
 
 super + Print
-	~/.config/bspwm/scripts/screenshot.sh
+	flameshot gui
 
 alt + Print
 	scrot -u /tmp/screenshot$-(date +%H%M%S).png -e 'xclip -sel clip -t image/png < $f'
