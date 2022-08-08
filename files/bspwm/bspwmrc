@@ -5,6 +5,7 @@ wmname LG3D &
 feh --bg-fill ~/Documents/wallpaper.png &
 compton --config ~/.config/compton/compton.conf &
 ~/.config/polybar/launch.sh &
+#xrandr --output DP-1 --primary --mode 1920x1080 --rate 144.00 &
 
 bspc config pointer_modifier mod1
 bspc config pointer_action1 move
@@ -24,7 +25,7 @@ bspc config gapless_monocle      true
 bspc rule -a com-sittinglittleduck-DirBuster-Start state=floating
 bspc rule -a Caja state=floating
 bspc rule -a discord desktop='^9' follow=on
-bspc rule -a Spotify desktop='^10' follow=on
+bspc rule -a "Spotify:*:*" desktop='^10' follow=on
 
 # Reglas por defecto
 #bspc rule -a Gimp desktop='^8' state=floating follow=on
