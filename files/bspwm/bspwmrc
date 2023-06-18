@@ -2,10 +2,10 @@
 
 sxhkd &
 wmname LG3D &
-feh --bg-fill ~/Documents/wallpaper.png &
 compton --config ~/.config/compton/compton.conf &
 ~/.config/polybar/launch.sh &
 #xrandr --output DP-1 --primary --mode 1920x1080 --rate 144.00 &
+feh --bg-fill ~/Documents/wallpaper.png &
 
 bspc config pointer_modifier mod1
 bspc config pointer_action1 move

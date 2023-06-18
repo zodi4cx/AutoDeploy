@@ -99,6 +99,10 @@ super + {o,i}
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
+# Send to the given desktop and follow
+super + ctrl + shift + {1-9,0}
+	bspc node -d '^{1-9,10}' --follow
+	
 #
 # preselect
 #
@@ -157,10 +161,10 @@ super + shift + l
 
 # Screenshots
 Print
-	mate-screenshot
+	flameshot gui
 
 super + Print
-	flameshot gui
+	mate-screenshot
 
 alt + Print
 	scrot -u /tmp/screenshot$-(date +%H%M%S).png -e 'xclip -sel clip -t image/png < $f'

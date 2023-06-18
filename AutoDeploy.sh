@@ -122,7 +122,7 @@ section "Instalación de utilidades"
 
 # Instalación de utilidades
 info "Instalando paquetes de utilidad"
-apt install -y php-curl snmp passing-the-hash enum4linux ranger htop ghex cherrytree nfs-common cifs-utils ldap-utils xclip feh exploitdb scrub i3lock cmatrix figlet lolcat sl scrot rinetd rlwrap knockd trash-cli gcc-multilib crackmapexec micro rofi snapd wmname > /dev/null 2>&1
+apt install -y php-curl snmp enum4linux ranger htop ghex cherrytree nfs-common cifs-utils ldap-utils xclip feh exploitdb scrub i3lock cmatrix figlet lolcat sl scrot rinetd rlwrap knockd trash-cli gcc-multilib micro rofi snapd wmname > /dev/null 2>&1
 check "No se pudieron instalar paquetes de herramientas básicas"
 # Sí, el lolcat es básico .- .
 
@@ -138,6 +138,7 @@ check "No se encontró $FILES_PATH/scripts/"
 info "Instalando Google Chrome"
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/chrome.deb > /dev/null 2>&1
 check "No se pudo decargar Google Chrome - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+apt install -y libu2f-udev > /dev/null 2>&1
 dpkg -i /tmp/chrome.deb > /dev/null 2>&1
 check "Error en la instalación de Google Chrome"
 
@@ -156,13 +157,13 @@ check "No se pudo descargar StegSolve - http://www.caesum.com/handbook/Stegsolve
 chmod +x /opt/stegsolve.jar 2>/dev/null
 
 # Gotop
-info "Instalando Gotop"
-git clone --depth 1 https://github.com/cjbassi/gotop /tmp/gotop > /dev/null 2>&1
-check "No se pudo clonar el repositorio de Gotop"
-/tmp/gotop/scripts/download.sh > /dev/null 2>&1
-check "Error en la instalación de Gotop"
-mv gotop /usr/local/bin 2>/dev/null
-check "No se pudo mover el binario de gotop a /usr/local/bin"
+# info "Instalando Gotop"
+# git clone --depth 1 https://github.com/cjbassi/gotop /tmp/gotop > /dev/null 2>&1
+# check "No se pudo clonar el repositorio de Gotop"
+# /tmp/gotop/scripts/download.sh > /dev/null 2>&1
+# check "Error en la instalación de Gotop"
+# mv gotop /usr/local/bin 2>/dev/null
+# check "No se pudo mover el binario de gotop a /usr/local/bin"
 
 # Updog
 info "Instalando updog"
@@ -239,31 +240,8 @@ chown -R $USERNAME:$USERNAME $HOME_PATH/.config/compton 2>/dev/null
 
 section "polybar"
 
-info "Instalando dependencias de Polybar"
-apt install -y build-essential git cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev > /dev/null 2>&1
-check "Error instalando dependencias de Polybar"
-info "Instalando dependencias opcionales de Polybar"
-apt install -y libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev > /dev/null 2>&1
-check "Error instalando dependencias opcionales de Polybar"
-
-info "Descargando el último release de Polybar"
-polybar_url=$(curl --silent 'https://github.com/polybar/polybar/releases' | grep 'https://.*/releases/download/' | cut -d '"' -f 2 | head -n 1)
-wget "$polybar_url" -O /tmp/polybar.tar > /dev/null 2>&1
-check "No se encontró el último release de Polybar"
-
-info "Building Polybar"
-tar -C /opt -xvf /tmp/polybar.tar > /dev/null 2>&1
-check "No se pudo hacer build de Polybar"
-
-info "Compilando Polybar"
-cd /opt/polybar* 2>/dev/null
-mkdir build 2>/dev/null
-cd build 2>/dev/null
-cmake .. > /dev/null 2>&1
-make -j$(nproc) > /dev/null 2>&1
-check "Hubo un error compilando Polybar"
 info "Instalando Polybar"
-make install > /dev/null 2>&1
+apt install -y polybar > /dev/null 2>&1
 check "Error instalando polybar"
 
 info "Copiando archivos de personalización de Polybar"
@@ -302,13 +280,15 @@ ln -sf $HOME_PATH/.zshrc /root/.zshrc
 chown -R $USERNAME:$USERNAME $HOME_PATH/powerlevel10k $HOME_PATH/.p10k.zsh $HOME_PATH/.zshrc 2>/dev/null
 
 info "Instalando lsd"
-wget "https://github.com$(curl --silent https://github.com/Peltoche/lsd/releases | grep 'lsd_.*_amd64.deb' | awk -F '\"' '{print $2}' | head -n 1)" -O /tmp/lsd.deb > /dev/null 2>&1
+downloadUrl=$(curl --silent https://api.github.com/repos/lsd-rs/lsd/releases/latest | grep browser_download_url | grep 'lsd_.*_amd64.deb' | cut -d '"' -f 4 | head -n 1)
+wget "$downloadUrl" -O /tmp/lsd.deb > /dev/null 2>&1
 check "Problema descargando el último release de lsd"
 dpkg -i /tmp/lsd.deb > /dev/null 2>&1
 check "Error en la instalación de lsd"
 
 info "Instalando bat"
-wget "https://github.com$(curl --silent https://github.com/sharkdp/bat/releases | grep 'bat_.*_amd64.deb' | awk -F '\"' '{print $2}' | head -n 1)" -O /tmp/bat.deb > /dev/null 2>&1
+downloadUrl=$(curl --silent https://api.github.com/repos/sharkdp/bat/releases/latest | grep browser_download_url | grep 'bat_.*_amd64.deb' | cut -d '"' -f 4 | head -n 1)
+wget "$downloadUrl" -O /tmp/bat.deb > /dev/null 2>&1
 check "Problema descargando el último release de bat"
 dpkg -i /tmp/bat.deb > /dev/null 2>&1
 check "Error en la instalación de bat"

@@ -106,6 +106,8 @@ function target() {
 	else echo "$1" > /tmp/.target; fi
 }
 
+up() { cd $(eval "printf '../'%.0s {1..$1}"); }
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Manual plugins
