@@ -264,7 +264,7 @@ ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = eth0
+interface = enp0s3
 interval = 3.0
 
 ;format-connected-prefix = "  "
